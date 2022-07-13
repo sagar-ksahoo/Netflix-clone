@@ -1,5 +1,3 @@
-//db pswd : VYQeGniQjVYs8AUQ
-
 const express = require("express")
 const app = express()
 
