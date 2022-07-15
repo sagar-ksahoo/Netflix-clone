@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Movie = require("../models/User")
+const Movie = require("../models/Movie")
 const verify = require("../verifyToken")
 
 //CREATE
@@ -16,8 +16,9 @@ router.post("/", verify , async (req,res) => {
         }
         catch(err){
             res.status(500).json(err);
+            console.log("Youe've fallen in error section");
         }
-       
+
     }
     else{
         res.status(403).json("!! You are not allowed !!");
