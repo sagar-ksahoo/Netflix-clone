@@ -1,8 +1,33 @@
 import { InfoOutlined, PlayArrow } from "@material-ui/icons"
+import axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
 import "./Featured.scss"
 
 
 const Featured = ({type}) => {
+
+    const [content, setContent] = useState({});
+
+    useEffect(() => {
+        const getRandomContent = async () => {
+            try{
+                const res = await axios.get(`/movies/random?type=${type}`,{
+                    headers: {
+                        token:
+                        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZDBmYWQ5NWRlNjE1YjE1NGFjMGU3YSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY1Nzg3NjA2NiwiZXhwIjoxNjU4MzA4MDY2fQ.QpSkzqy2oo9rAVx0uMwkkGoj9Q465Efv9jd-0ItZl8c",
+                      },
+                })
+
+                setContent(res.data[0])
+            }
+            catch(err){
+                console.log(err) ;
+            }
+        };
+        getRandomContent();
+    }, [type])
+
   return (    
     <div className="featured">
         
@@ -33,20 +58,18 @@ const Featured = ({type}) => {
 
         <img 
             
-            src="https://cdn.wallpapersafari.com/83/48/Uwd4Xu.jpg" 
+            src={content.img}
             alt="wallpaper" 
         />
 
         <div className="info">
             <img 
-                src="" 
+                src={content.imgTitle}
                 alt="info-img" 
             />
 
             <span className="desc">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum aliquam repellat 
-            alias ipsa neque illum voluptates dolor aspernatur et quasi facilis, laborum 
-            doloremque maxime tenetur possimus hic ratione delectus explicabo?
+            {content.desc}
             </span>
 
             <div className="buttons">
